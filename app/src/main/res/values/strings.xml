@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">Taager App</string>
+    <string name="productId">Product Id : %s</string>
+    <string name="productPrice">Product Price : %s</string>
+    <string name="createdAt">Created At : %s</string>
 </resources>

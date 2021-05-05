@@ -15,10 +15,7 @@ import kotlinx.coroutines.test.TestCoroutineDispatcher
 import kotlinx.coroutines.test.resetMain
 import kotlinx.coroutines.test.runBlockingTest
 import kotlinx.coroutines.test.setMain
-import org.junit.After
-import org.junit.Before
-import org.junit.Rule
-import org.junit.Test
+import org.junit.*
 import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
 import org.mockito.Mock
@@ -26,6 +23,8 @@ import org.mockito.Mockito
 import org.mockito.Mockito.timeout
 import org.mockito.MockitoAnnotations
 import org.mockito.junit.MockitoJUnit
+import java.text.SimpleDateFormat
+import java.util.*
 
 
 @RunWith(JUnit4::class)
@@ -83,5 +82,15 @@ class MainViewModelTest {
         mainViewModel.fetchProducts()
         delay(40)
         verify(weatherObserver, timeout(50)).onChanged(responseList)
+    }
+
+    @Test
+    fun test_convert_time() {
+        val df = SimpleDateFormat("yyyy/MM/dd HH:mm:ss")
+        val date = Date()
+        val stringDate = df.format(date)
+        val dateToLong = date.time
+        val afterString = mainViewModel.convertToTime(dateToLong)
+        Assert.assertEquals(stringDate, afterString)
     }
 }
