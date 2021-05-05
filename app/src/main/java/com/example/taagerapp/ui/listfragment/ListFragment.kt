@@ -5,6 +5,7 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.taagerapp.R
 import com.example.taagerapp.databinding.FragmentListBinding
@@ -22,27 +23,31 @@ class ListFragment : Fragment(R.layout.fragment_list), ProductCallBack {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        if (savedInstanceState == null){
+        if (savedInstanceState == null) {
             viewModel.fetchProducts()
         }
     }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentListBinding.bind(view)
         binding.lifecycleOwner = this
 
         binding.apply {
-           list.layoutManager = LinearLayoutManager(context)
+            list.layoutManager = LinearLayoutManager(context)
         }
 
         viewModel.repositoriesLiveData.observe(viewLifecycleOwner, Observer {
-            val productAdapter = ProductAdapter(it, viewModel,this)
+            val productAdapter = ProductAdapter(it, viewModel, this)
             binding.list.adapter = productAdapter
         })
     }
 
     override fun onClick(product: Product) {
-        //navigate to details fragment
+        val bundle = Bundle()
+        bundle.putParcelable("product", product)
+        Navigation.findNavController(binding.root)
+            .navigate(R.id.action_listFragment_to_detailsFragment, bundle)
     }
 
 }
