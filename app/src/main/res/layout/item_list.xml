@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="product"
+            type="com.example.taagerapp.model.Product" />
+
+        <variable
+            name="viewmodel"
+            type="com.example.taagerapp.ui.viewmodel.MainViewModel" />
+
+        <variable
+            name="callback"
+            type="com.example.taagerapp.ui.adapter.ProductCallBack" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="15dp"
+        android:orientation="vertical"
+        android:onClick="@{() -> callback.onClick(product)}"
+        android:clickable="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@{product.productName}"
+            android:textSize="20sp"
+            tools:text="Product Name"/>
+
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/id"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@{@string/productId(product.productId)}"
+            android:textSize="16sp"
+            tools:text="Product ID"/>
+
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/price"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@{@string/productPrice(String.valueOf(product.productPrice))}"
+            android:textSize="14sp"
+            tools:text="Product Price"/>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@{@string/createdAt(viewmodel.convertToTime(product.timestamp))}"
+            android:textSize="14sp"
+            tools:text="Created At"/>
+    </LinearLayout>
+</layout>

@@ -1,5 +1,6 @@
 package com.example.taagerapp.ui.viewmodel
 
+import android.annotation.SuppressLint
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -9,6 +10,8 @@ import com.example.taagerapp.model.repository.MainRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.*
 import timber.log.Timber
+import java.sql.Date
+import java.text.SimpleDateFormat
 import javax.inject.Inject
 
 @HiltViewModel
@@ -32,6 +35,13 @@ class MainViewModel @Inject constructor(
                 Timber.e(e)
             }
         }
+    }
+
+    @SuppressLint("SimpleDateFormat")
+    fun convertToTime(time: Long): String {
+        val date = Date(time)
+        val format = SimpleDateFormat("yyyy/MM/dd HH:mm:ss")
+        return format.format(date)
     }
 
 
